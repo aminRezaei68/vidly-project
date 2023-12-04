@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const {User, validate} = require('../models/user');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -14,19 +15,24 @@ router.post('/', async (req, res) => {
         return res.status(400).send('User already registered.');
     } 
 
-    user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    });
+    // user = new User({
+    //     name: req.body.name,
+    //     email: req.body.email,
+    //     password: req.body.password
+    // });
+
+    // instead of 'user = new User({req.body})' at above we can use lodash:
+    user = new User(_.pick(req.body, ['name', 'email', 'password']));
 
     await user.save();
 
     // res.send(user);
-    res.send({
-        name: user.name,
-        email: user.email
-    });
+    // res.send({
+    //     name: user.name,
+    //     email: user.email
+    // });
+    // instead of use name: user.name & email: user.email we use line above:
+    res.send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 module.exports = router; 
