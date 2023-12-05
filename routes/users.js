@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
     // });
     // instead of use name: user.name & email: user.email we use line above:
 
-    const token = jwt.sign({_id: user._id}, config.get('jwtPrivateKey'));
+    const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
