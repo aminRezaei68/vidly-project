@@ -15,8 +15,14 @@ const rentals = require('./routes/rentals');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
 
+process.on('uncaughtException', (exception) => {
+    console.log('WE GOT AN UNCAUGHT EXCEPTION');
+    winston.error(exception.message, exception);
+})
+
 winston.add(winston.transports.File, {filename: 'logfile.log'});
-winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/vidly'})
+winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/vidly'});
+
 
 if (!config.get('jwtPrivateKey')) {
     console.error('FATA ERROR: jwtPrivateKey is not define.');
