@@ -21,8 +21,7 @@ process.on('uncaughtException', (exception) => {
 })
 
 winston.add(winston.transports.File, {filename: 'logfile.log'});
-winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/vidly'});
-
+winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/vidly'})
 
 if (!config.get('jwtPrivateKey')) {
     console.error('FATA ERROR: jwtPrivateKey is not define.');
