@@ -9,6 +9,7 @@ const express = require('express');
 const app = express();
 
 require('./startup/routes')(app);
+require('./startup/db')();
 
 // process.on('uncaughtException', (exception) => { //instade of this we can use: handleExceptions()
 //     winston.error(exception.message, exception);
@@ -34,11 +35,6 @@ if (!config.get('jwtPrivateKey')) {
     console.error('FATA ERROR: jwtPrivateKey is not define.');
     process.exit(1)
 }
-
-mongoose.connect('mongodb://127.0.0.1/vidly',{useMongoClient:true})
-    .then(() => {console.log('Connecting to the mongoDB.')})
-    .catch(err => {console.error('Can not Connecting to the mongoDB...', err)}); 
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on port ${port} ...`));
