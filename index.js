@@ -18,7 +18,12 @@ const users = require('./routes/users');
 process.on('uncaughtException', (exception) => {
     console.log('WE GOT AN UNCAUGHT EXCEPTION');
     winston.error(exception.message, exception);
-})
+});
+
+process.on('unhandledRejection', (exception) => {
+    console.log('WE GOT AN UNHANDLED REJECTION');
+    winston.error(exception.message, exception);
+});
 
 winston.add(winston.transports.File, {filename: 'logfile.log'});
 winston.add(winston.transports.MongoDB, {
