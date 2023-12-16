@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "jest": "jest --env=node --colors --coverage test --watchAll",
+    "jest": "jest --env=node --colors --coverage test --watchAll --verbose",
     "test": "npm run jest"
   },
   "keywords": [],
